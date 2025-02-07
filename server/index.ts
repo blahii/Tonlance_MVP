@@ -3,6 +3,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import routes from "./routes/index.js";  // Note the .js extension for ESM
 import { setupVite, serveStatic, log } from "./vite";
 import cors from "cors";
+import { createServer } from "http";
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  const httpServer = createServer(app);
   const server = routes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -56,13 +58,13 @@ app.use((req, res, next) => {
   });
 
   if (app.get("env") === "development") {
-    await setupVite(app, server);
+    await setupVite(app, httpServer);
   } else {
     serveStatic(app);
   }
 
-  const port = process.env.PORT || 3000;
-  server.listen(port, "0.0.0.0", () => {
+  const port = Number(process.env.PORT) || 3000;
+  httpServer.listen(port, "0.0.0.0", () => {
     console.log(`Server running on port ${port}`);
   });
 })();
