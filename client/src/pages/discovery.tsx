@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, DollarSign, SlidersHorizontal, CheckCircle2 } from "lucide-react";
 
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+
 const EXAMPLE_TASKS = [
   {
     id: 1,
@@ -46,6 +48,7 @@ const EXAMPLE_TASKS = [
 
 export default function Discovery() {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<typeof EXAMPLE_TASKS[0] | null>(null);
 
   return (
     <div>
@@ -156,7 +159,11 @@ export default function Discovery() {
 
       <div className="space-y-4">
         {EXAMPLE_TASKS.map((task) => (
-          <Card key={task.id} className="hover:bg-accent/50 transition-colors cursor-pointer">
+          <Card 
+            key={task.id} 
+            className="hover:bg-accent/50 transition-colors cursor-pointer"
+            onClick={() => setSelectedProject(task)}
+          >
             <CardContent className="pt-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -191,6 +198,50 @@ export default function Discovery() {
           </Card>
         ))}
       </div>
+
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="w-full md:max-w-[70%] max-h-[90vh] overflow-y-auto">
+          {selectedProject && (
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
+              
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-4 w-4" />
+                  <span className="font-medium">${selectedProject.budget}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  <span>{selectedProject.estimatedTime}</span>
+                </div>
+                {selectedProject.verified && (
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                    <span>Payment verified</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2 flex-wrap">
+                {selectedProject.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">{tag}</Badge>
+                ))}
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">Description</h3>
+                <p className="text-muted-foreground whitespace-pre-wrap">
+                  {selectedProject.description}
+                </p>
+              </div>
+
+              <div className="pt-4">
+                <Button className="w-full">Apply Now</Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
