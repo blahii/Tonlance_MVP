@@ -1,20 +1,18 @@
 import * as dotenv from 'dotenv';
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
+import routes from "./routes/index.js";  // Note the .js extension for ESM
 import { setupVite, serveStatic, log } from "./vite";
-
-
-
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL must be set. Did you forget to provision a database?");
 }
-
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -47,7 +45,7 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  const server = registerRoutes(app);
+  const server = routes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -57,18 +55,14 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-// Setup routes, middleware, etc...
-const PORT = 5000;
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`serving on port ${PORT}`);
-});
+  const port = process.env.PORT || 3000;
+  server.listen(port, "0.0.0.0", () => {
+    console.log(`Server running on port ${port}`);
+  });
 })();
