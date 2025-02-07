@@ -12,6 +12,7 @@ import Tasks from "@/pages/tasks";
 import TaskDetails from "@/pages/task-details";
 import CreateTask from "@/pages/create-task";
 import Profile from "@/pages/profile";
+import Discovery from "@/pages/discovery";
 import RoleSelect from "@/pages/role-select";
 import NotFound from "@/pages/not-found";
 
@@ -43,6 +44,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/tasks" component={Tasks} />
         <Route path="/tasks/:id" component={TaskDetails} />
+        <Route path="/discovery" component={Discovery} />
         {user.role === 'client' && (
           <Route path="/create" component={CreateTask} />
         )}
