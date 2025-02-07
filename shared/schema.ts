@@ -6,6 +6,7 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   telegramId: text("telegram_id").notNull().unique(),
   username: text("username").notNull(),
+  role: text("role"),
   balance: integer("balance").notNull().default(0),
   rating: integer("rating").notNull().default(0),
 });
@@ -40,6 +41,10 @@ export const messages = pgTable("messages", {
 export const insertUserSchema = createInsertSchema(users).pick({
   telegramId: true,
   username: true,
+});
+
+export const updateUserSchema = createInsertSchema(users).pick({
+  role: true,
 });
 
 export const insertTaskSchema = createInsertSchema(tasks).pick({

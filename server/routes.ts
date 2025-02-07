@@ -7,10 +7,10 @@ import { z } from "zod";
 
 export function registerRoutes(app: Express): Server {
   const httpServer = createServer(app);
-  
+
   // WebSocket setup for chat
   const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
-  
+
   wss.on('connection', (ws) => {
     ws.on('message', async (data) => {
       try {
@@ -18,7 +18,7 @@ export function registerRoutes(app: Express): Server {
         if (message.type === 'chat') {
           const validatedMessage = insertMessageSchema.parse(message.data);
           const savedMessage = await storage.createMessage(validatedMessage);
-          
+
           // Broadcast to all connected clients
           wss.clients.forEach((client) => {
             if (client.readyState === WebSocket.OPEN) {
@@ -37,7 +37,7 @@ export function registerRoutes(app: Express): Server {
     try {
       const userData = insertUserSchema.parse(req.body);
       const existingUser = await storage.getUserByTelegramId(userData.telegramId);
-      
+
       if (existingUser) {
         res.json(existingUser);
       } else {
@@ -48,6 +48,30 @@ export function registerRoutes(app: Express): Server {
       res.status(400).json({ error: 'Invalid request data' });
     }
   });
+
+  //New Role Update Route
+  app.patch('/api/auth/role', async (req, res) => {
+    try {
+      const { role } = req.body;
+      if (!role || !['client', 'freelancer'].includes(role)) {
+        return res.status(400).json({ error: 'Invalid role' });
+      }
+
+      const telegramId = req.body.telegramId; //Implementation of getInitData() -  Assuming telegramId is sent in the request body. Adjust as needed for your authentication method.
+
+      const user = await storage.getUserByTelegramId(telegramId);
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const updatedUser = await storage.updateUserRole(user.id, role);
+      res.json(updatedUser);
+    } catch (error) {
+      res.status(400).json({ error: 'Failed to update role' });
+    }
+  });
+
 
   // Task routes
   app.get('/api/tasks', async (req, res) => {
