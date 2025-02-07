@@ -16,6 +16,8 @@ import Profile from "./pages/profile";
 import Discovery from "./pages/discovery";
 import Projects from "./pages/projects";
 import Messages from "./pages/messages";
+import Settings from "./pages/settings";
+import Pro from "./pages/pro";
 import RoleSelect from "./pages/role-select";
 import NotFound from "./pages/not-found";
 
@@ -50,6 +52,8 @@ function Router() {
         <Route path="/discovery" component={Discovery} />
         <Route path="/projects" component={Projects} />
         <Route path="/messages" component={Messages} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/pro" component={Pro} />
         {user.role === 'client' && (
           <Route path="/create" component={CreateTask} />
         )}
