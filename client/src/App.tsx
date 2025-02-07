@@ -1,9 +1,9 @@
+
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Layout } from "@/components/layout";
-import { useTelegramAuth } from "./lib/telegram";
 import { useQuery } from "@tanstack/react-query";
 import type { User } from "@shared/schema";
 
@@ -65,8 +65,6 @@ function Router() {
 }
 
 function App() {
-  useTelegramAuth();
-
   return (
     <QueryClientProvider client={queryClient}>
       <Router />
