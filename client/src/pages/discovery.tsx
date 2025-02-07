@@ -1,22 +1,14 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import {
-  Clock,
-  DollarSign,
-  SlidersHorizontal,
-  CheckCircle2
-} from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Clock, DollarSign, SlidersHorizontal, CheckCircle2 } from "lucide-react";
 import type { Task } from "@shared/schema";
 
 export default function Discovery() {
@@ -27,7 +19,6 @@ export default function Discovery() {
 
   return (
     <div>
-      {/* Header with filters button */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Discovery</h1>
         <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
@@ -42,92 +33,87 @@ export default function Discovery() {
               <SheetTitle>Filters</SheetTitle>
             </SheetHeader>
             <div className="mt-6 space-y-6">
-              {/* Category */}
               <div>
                 <h3 className="font-medium mb-3">Category</h3>
-                <Button variant="outline" className="w-full justify-start">
-                  Select Categories
-                </Button>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="webflow">Webflow</SelectItem>
+                    <SelectItem value="webdesign">Web Design</SelectItem>
+                    <SelectItem value="landing">Landing Page</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              {/* Experience Level */}
               <div>
                 <h3 className="font-medium mb-3">Experience Level</h3>
                 <div className="space-y-2">
-                  <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
-                      Entry Level (48)
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
-                      Intermediate (692)
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
-                      Expert (367)
-                    </label>
-                  </div>
+                  {[
+                    { label: "Entry Level", count: 48 },
+                    { label: "Intermediate", count: 692 },
+                    { label: "Expert", count: 367 }
+                  ].map((level) => (
+                    <div className="flex items-center" key={level.label}>
+                      <Checkbox id={level.label} />
+                      <label htmlFor={level.label} className="text-sm ml-2">
+                        {level.label} ({level.count})
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Job Type */}
               <div>
                 <h3 className="font-medium mb-3">Job Type</h3>
                 <div className="space-y-2">
-                  <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
-                      Hourly (48)
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
-                      Fixed-Price (692)
-                    </label>
-                  </div>
+                  {[
+                    { label: "Hourly", count: 48 },
+                    { label: "Fixed-Price", count: 692 }
+                  ].map((type) => (
+                    <div className="flex items-center" key={type.label}>
+                      <Checkbox id={type.label} />
+                      <label htmlFor={type.label} className="text-sm ml-2">
+                        {type.label} ({type.count})
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <Separator />
 
-              {/* Client Info */}
               <div>
                 <h3 className="font-medium mb-3">Client Info</h3>
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
+                    <Checkbox id="payment-verified" />
+                    <label htmlFor="payment-verified" className="text-sm ml-2">
                       Payment Verified (978)
                     </label>
                   </div>
                   <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
+                    <Checkbox id="previous-clients" />
+                    <label htmlFor="previous-clients" className="text-sm ml-2">
                       My Previous Clients (0)
                     </label>
                   </div>
                 </div>
               </div>
 
-              {/* Pre-payment */}
               <div>
                 <h3 className="font-medium mb-3">Pre-payment</h3>
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
+                    <Checkbox id="prepay-10-25" />
+                    <label htmlFor="prepay-10-25" className="text-sm ml-2">
                       10%-25%
                     </label>
                   </div>
                   <div className="flex items-center">
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded" />
+                    <Checkbox id="prepay-25-50" />
+                    <label htmlFor="prepay-25-50" className="text-sm ml-2">
                       25%-50%
                     </label>
                   </div>
@@ -138,7 +124,6 @@ export default function Discovery() {
         </Sheet>
       </div>
 
-      {/* Project List */}
       <div className="space-y-4">
         {tasks?.map((task) => (
           <Card key={task.id} className="hover:bg-accent/50 transition-colors cursor-pointer">
