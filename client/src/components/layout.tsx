@@ -52,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   )}
                 >
                   <Icon className="h-5 w-5 mb-1 lg:mb-0" />
-                  <span className="text-center lg:text-left">{item.label}</span>
+                  <span className="text-center lg:text-left hidden lg:inline-block">{item.label}</span>
                 </Link>
               );
             })}
@@ -94,7 +94,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 lg:ml-0"> {/* Removed fixed width on smaller screens */}
+      <main className="flex-1 lg:ml-64 md:ml-0 ml-0">
         <div className="container mx-auto px-6 py-8">
           {children}
         </div>
