@@ -1,21 +1,50 @@
-
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, DollarSign, SlidersHorizontal, CheckCircle2 } from "lucide-react";
-import type { Task } from "@shared/schema";
+
+const EXAMPLE_TASKS = [
+  {
+    id: 1,
+    title: "Build a Webflow CMS Collection for a Podcast",
+    budget: "12-22",
+    description: "APPLICANTS NOTE: Please include estimated number of hours required and number of days required to complete. Seeking Webflow designer to add a CMS collection for a podcast to our website (https://www.qualrecruit.com/).",
+    tags: ["Webflow", "Web Design", "Landing page", "Website"],
+    type: "Hourly",
+    experience: "Entry level",
+    estimatedTime: "Less than 1 month, Less than 30 hrs/week",
+    verified: true
+  },
+  {
+    id: 2,
+    title: "Frontend Developer for E-commerce Platform",
+    budget: "15-25",
+    description: "Looking for a frontend developer to help build our e-commerce platform using React and TypeScript.",
+    tags: ["React", "TypeScript", "E-commerce"],
+    type: "Hourly",
+    experience: "Intermediate",
+    estimatedTime: "1-3 months, 20-30 hrs/week",
+    verified: true
+  },
+  {
+    id: 3,
+    title: "Mobile App UI/UX Designer",
+    budget: "20-35",
+    description: "Need a talented UI/UX designer for our mobile app. Experience with Figma required.",
+    tags: ["UI/UX", "Mobile", "Figma"],
+    type: "Hourly",
+    experience: "Intermediate",
+    estimatedTime: "2-4 weeks, 15-25 hrs/week",
+    verified: true
+  }
+];
 
 export default function Discovery() {
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const { data: tasks } = useQuery<Task[]>({
-    queryKey: ['/api/tasks']
-  });
 
   return (
     <div>
@@ -125,7 +154,7 @@ export default function Discovery() {
       </div>
 
       <div className="space-y-4">
-        {tasks?.map((task) => (
+        {EXAMPLE_TASKS.map((task) => (
           <Card key={task.id} className="hover:bg-accent/50 transition-colors cursor-pointer">
             <CardContent className="pt-6">
               <div className="flex justify-between items-start mb-4">
@@ -133,7 +162,7 @@ export default function Discovery() {
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                     <Clock className="h-4 w-4" />
                     Posted 26 minutes ago
-                    {task.createdBy && (
+                    {task.verified && (
                       <>
                         <span>|</span>
                         <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -145,15 +174,15 @@ export default function Discovery() {
                   <div className="flex items-center gap-2 mb-4">
                     <DollarSign className="h-4 w-4" />
                     <span className="font-medium">${task.budget}</span>
-                    <span className="text-muted-foreground">- Entry level</span>
+                    <span className="text-muted-foreground">- {task.experience}</span>
                   </div>
                   <p className="text-muted-foreground mb-4">
                     {task.description}
                   </p>
-                  <div className="flex gap-2">
-                    <Badge variant="secondary">Webflow</Badge>
-                    <Badge variant="secondary">Web Design</Badge>
-                    <Badge variant="secondary">Landing Page</Badge>
+                  <div className="flex gap-2 flex-wrap">
+                    {task.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary">{tag}</Badge>
+                    ))}
                   </div>
                 </div>
               </div>
