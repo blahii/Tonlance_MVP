@@ -41,16 +41,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {menuItems.map((item) => {
               const Icon = item.icon;
               return (
-                <Link key={item.href} href={item.href}>
-                  <a className={cn(
+                <Link 
+                  key={item.href} 
+                  href={item.href}
+                  className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                     location === item.href 
                       ? "bg-primary text-primary-foreground"
                       : "hover:bg-accent"
-                  )}>
-                    <Icon className="h-5 w-5" />
-                    {item.label}
-                  </a>
+                  )}
+                >
+                  <Icon className="h-5 w-5" />
+                  {item.label}
                 </Link>
               );
             })}
@@ -66,23 +68,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
 
-              <Link href="/settings">
-                <a className={cn(
+              <Link 
+                href="/settings"
+                className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                   location === '/settings'
                     ? "bg-primary text-primary-foreground"
                     : "hover:bg-accent"
-                )}>
-                  <Settings className="h-5 w-5" />
-                  Settings
-                </a>
+                )}
+              >
+                <Settings className="h-5 w-5" />
+                Settings
               </Link>
 
-              <Link href="/pro">
-                <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-primary hover:bg-accent transition-colors">
-                  <Crown className="h-5 w-5" />
-                  Tonlance Pro
-                </a>
+              <Link 
+                href="/pro"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-primary hover:bg-accent transition-colors"
+              >
+                <Crown className="h-5 w-5" />
+                Tonlance Pro
               </Link>
             </div>
           </nav>
