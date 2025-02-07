@@ -13,7 +13,8 @@ const EXAMPLE_JOBS = [
     tags: ["Webflow", "Web Design", "Landing page", "Website"],
     type: "Hourly",
     experience: "Entry level",
-    timeLeft: "3 days left"
+    timeLeft: "3 days left",
+    status: "proposals"
   },
   {
     id: 2,
@@ -23,7 +24,19 @@ const EXAMPLE_JOBS = [
     tags: ["React", "TypeScript", "E-commerce"],
     type: "Hourly",
     experience: "Intermediate",
-    timeLeft: "5 days left"
+    timeLeft: "5 days left",
+    status: "active"
+  },
+  {
+    id: 3,
+    title: "Mobile App UI/UX Designer",
+    budget: "20-35",
+    description: "Need a talented UI/UX designer for our mobile app. Experience with Figma required.",
+    tags: ["UI/UX", "Mobile", "Figma"],
+    type: "Hourly",
+    experience: "Intermediate",
+    timeLeft: "Completed",
+    status: "archived"
   }
 ];
 
@@ -35,20 +48,6 @@ export default function Jobs() {
         <Button>Send Proposal</Button>
       </div>
 
-      <Card className="bg-accent">
-        <CardContent className="pt-6">
-          <div className="flex items-center gap-2 mb-4">
-            <Briefcase className="h-5 w-5 text-muted-foreground" />
-            <p>Your skills match <span className="font-bold">63</span> open jobs</p>
-          </div>
-          <div className="flex gap-2 mb-4">
-            {["Web Designer", "Webflow Developer", "Web Developer"].map((skill) => (
-              <Badge key={skill} variant="secondary">{skill}</Badge>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
       <div className="grid gap-4">
         {EXAMPLE_JOBS.map((job) => (
           <Card key={job.id} className="cursor-pointer hover:bg-accent transition-colors">
@@ -59,6 +58,11 @@ export default function Jobs() {
               <p className="text-sm text-muted-foreground mb-4">
                 {job.description}
               </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {job.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">{tag}</Badge>
+                ))}
+              </div>
               <div className="flex gap-4 text-sm">
                 <div className="flex items-center gap-1">
                   <DollarSign className="h-4 w-4" />
@@ -68,6 +72,9 @@ export default function Jobs() {
                   <Clock className="h-4 w-4" />
                   <span>{job.timeLeft}</span>
                 </div>
+                <Badge variant={job.status === 'active' ? 'default' : 'secondary'}>
+                  {job.status}
+                </Badge>
               </div>
             </CardContent>
           </Card>

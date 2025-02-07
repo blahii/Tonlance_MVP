@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import type { User } from "@shared/schema";
+import { ProDialog } from "./pro-dialog"; // Added import for ProDialog
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -81,13 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Settings
               </Link>
 
-              <Link 
-                href="/pro"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-primary hover:bg-accent transition-colors"
-              >
-                <Crown className="h-5 w-5" />
-                Tonlance Pro
-              </Link>
+              <ProDialog /> {/* Replaced Pro button with ProDialog */}
             </div>
           </nav>
         </div>
