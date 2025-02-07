@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useLocation } from "wouter";
@@ -19,7 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 const projectSchema = z.object({
   title: z.string().min(3).max(100),
   description: z.string().min(10),
-  budget: z.string().transform(Number),
+  budget: z.string().min(1),
   timeline: z.string().min(3),
 });
 
@@ -41,7 +40,11 @@ export default function StartProject() {
 
   const onSubmit = async (data: ProjectForm) => {
     try {
-      // TODO: Implement project creation API
+      const submissionData = {
+        ...data,
+        budget: Number(data.budget),
+      };
+      // TODO: Implement project creation API with submissionData
       toast({
         title: "Project created",
         description: "Your project has been created successfully.",
