@@ -12,6 +12,8 @@ export function registerRoutes(app: Express): Server {
   const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
 
   wss.on('connection', (ws) => {
+    console.log('New WebSocket connection established');
+
     ws.on('message', async (data) => {
       try {
         const message = JSON.parse(data.toString());

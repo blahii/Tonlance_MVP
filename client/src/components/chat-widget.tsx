@@ -19,12 +19,17 @@ export function ChatWidget({ taskId, userId }: ChatWidgetProps) {
   useEffect(() => {
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const wsUrl = `${protocol}//${window.location.host}/ws`;
+    console.log('Connecting to WebSocket:', wsUrl);
 
     try {
       socketRef.current = new WebSocket(wsUrl);
 
       socketRef.current.onopen = () => {
-        console.log('WebSocket connected');
+        console.log('WebSocket connection established');
+      };
+
+      socketRef.current.onclose = () => {
+        console.log('WebSocket connection closed');
       };
 
       socketRef.current.onerror = (error) => {
@@ -73,7 +78,8 @@ export function ChatWidget({ taskId, userId }: ChatWidgetProps) {
         data: {
           taskId,
           userId,
-          content: newMessage
+          content: newMessage,
+          timestamp: new Date().toISOString()
         }
       }));
       setNewMessage("");
