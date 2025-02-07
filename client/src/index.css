@@ -53,3 +53,19 @@
     @apply text-foreground border-primary hover:bg-primary hover:text-primary-foreground transition-colors;
   }
 }
+
+.p8 {
+    padding-bottom: 7rem;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding-bottom: 7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-bottom: 7rem;
+  }
+}
