@@ -33,11 +33,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex">
       {/* Left Sidebar */}
-      <aside className="w-64 bg-background border-r fixed h-full">
-        <div className="p-4">
-          <h1 className="text-2xl font-bold mb-6">Tonlance</h1>
+      <aside className="lg:w-64 bg-background border-r fixed h-full w-full bottom-0 lg:top-0 lg:h-full">
+        <div className="p-4 lg:block">
+          <h1 className="text-2xl font-bold mb-6 hidden lg:block">Tonlance</h1>
 
-          <nav className="space-y-2">
+          <nav className="flex lg:flex-col justify-around lg:justify-start lg:space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -45,21 +45,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   key={item.href} 
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
+                    "flex flex-col lg:flex-row items-center lg:gap-3 px-3 py-2 rounded-lg text-xs lg:text-sm transition-colors",
                     location === item.href 
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-primary text-primary-foreground lg:bg-primary"
                       : "hover:bg-accent"
                   )}
                 >
                   <Icon className="h-5 w-5" />
-                  {item.label}
+                  <span className="mt-1 lg:mt-0">{item.label}</span>
                 </Link>
               );
             })}
 
-            <Separator className="my-4" />
+            <Separator className="my-4 hidden lg:block" />
 
-            <div className="space-y-2">
+            <div className="space-y-2 hidden lg:block">
               <div className="flex items-center gap-3 px-3 py-2">
                 <Wallet className="h-5 w-5" />
                 <div>
