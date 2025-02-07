@@ -19,22 +19,42 @@ export function ChatWidget({ taskId, userId }: ChatWidgetProps) {
   useEffect(() => {
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const wsUrl = `${protocol}//${window.location.host}/ws`;
-    socketRef.current = new WebSocket(wsUrl);
 
-    socketRef.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      if (message.type === 'chat' && message.data.taskId === taskId) {
-        setMessages(prev => [...prev, message.data]);
-      }
-    };
+    try {
+      socketRef.current = new WebSocket(wsUrl);
+
+      socketRef.current.onopen = () => {
+        console.log('WebSocket connected');
+      };
+
+      socketRef.current.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+
+      socketRef.current.onmessage = (event) => {
+        try {
+          const message = JSON.parse(event.data);
+          if (message.type === 'chat' && message.data.taskId === taskId) {
+            setMessages(prev => [...prev, message.data]);
+          }
+        } catch (error) {
+          console.error('Error parsing message:', error);
+        }
+      };
+    } catch (error) {
+      console.error('Error creating WebSocket:', error);
+    }
 
     // Load existing messages
     fetch(`/api/tasks/${taskId}/messages`)
       .then(res => res.json())
-      .then(setMessages);
+      .then(setMessages)
+      .catch(error => console.error('Error loading messages:', error));
 
     return () => {
-      socketRef.current?.close();
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
   }, [taskId]);
 
@@ -47,16 +67,19 @@ export function ChatWidget({ taskId, userId }: ChatWidgetProps) {
   const sendMessage = () => {
     if (!newMessage.trim() || !socketRef.current) return;
 
-    socketRef.current.send(JSON.stringify({
-      type: 'chat',
-      data: {
-        taskId,
-        userId,
-        content: newMessage
-      }
-    }));
-
-    setNewMessage("");
+    try {
+      socketRef.current.send(JSON.stringify({
+        type: 'chat',
+        data: {
+          taskId,
+          userId,
+          content: newMessage
+        }
+      }));
+      setNewMessage("");
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
   return (

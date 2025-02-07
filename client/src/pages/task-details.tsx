@@ -14,14 +14,16 @@ export default function TaskDetails() {
   const { id } = useParams();
   const { toast } = useToast();
   const [proposal, setProposal] = useState("");
-  const taskId = parseInt(id);
+  const taskId = id ? parseInt(id) : 0;
 
-  const { data: task } = useQuery<Task>({
-    queryKey: [`/api/tasks/${taskId}`]
+  const { data: task, isError } = useQuery<Task>({
+    queryKey: [`/api/tasks/${taskId}`],
+    enabled: taskId > 0
   });
 
   const { data: proposals } = useQuery<Proposal[]>({
-    queryKey: [`/api/tasks/${taskId}/proposals`]
+    queryKey: [`/api/tasks/${taskId}/proposals`],
+    enabled: taskId > 0
   });
 
   const { data: user } = useQuery<User>({
@@ -30,8 +32,9 @@ export default function TaskDetails() {
 
   const createProposal = useMutation({
     mutationFn: async () => {
+      if (!user?.id) throw new Error('User not authenticated');
       await apiRequest('POST', `/api/tasks/${taskId}/proposals`, {
-        userId: user?.id,
+        userId: user.id,
         message: proposal
       });
     },
@@ -43,6 +46,15 @@ export default function TaskDetails() {
       setProposal("");
     }
   });
+
+  if (isError || !taskId) {
+    return (
+      <div className="text-center py-8">
+        <h1 className="text-2xl font-bold mb-4">Task Not Found</h1>
+        <p className="text-muted-foreground">The requested task could not be found.</p>
+      </div>
+    );
+  }
 
   if (!task) return null;
 
@@ -68,7 +80,7 @@ export default function TaskDetails() {
         </CardContent>
       </Card>
 
-      {task.status === "open" && (
+      {task.status === "open" && user && (
         <Card>
           <CardContent className="pt-6">
             <h2 className="text-lg font-semibold mb-4">Submit Proposal</h2>
@@ -88,7 +100,7 @@ export default function TaskDetails() {
         </Card>
       )}
 
-      {proposals?.length > 0 && (
+      {proposals && proposals.length > 0 && (
         <Card>
           <CardContent className="pt-6">
             <h2 className="text-lg font-semibold mb-4">Proposals</h2>
