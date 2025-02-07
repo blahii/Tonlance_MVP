@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
@@ -17,6 +16,8 @@ import Profile from "./pages/profile";
 import Settings from "./pages/settings";
 import Pro from "./pages/pro";
 import NotFound from "./pages/not-found";
+import StartProject from "./pages/start-project"; // Import the new component
+
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
         <Route path="/profile" component={Profile} />
         <Route path="/settings" component={Settings} />
         <Route path="/pro" component={Pro} />
+        <Route path="/start-project" component={StartProject} /> {/* Added Start Project route */}
         <Route component={NotFound} />
       </Switch>
     </Layout>
