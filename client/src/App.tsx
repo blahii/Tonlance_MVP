@@ -7,14 +7,17 @@ import { useTelegramAuth } from "./lib/telegram";
 import { useQuery } from "@tanstack/react-query";
 import type { User } from "@shared/schema";
 
-import Home from "@/pages/home";
-import Tasks from "@/pages/tasks";
-import TaskDetails from "@/pages/task-details";
-import CreateTask from "@/pages/create-task";
-import Profile from "@/pages/profile";
-import Discovery from "@/pages/discovery";
-import RoleSelect from "@/pages/role-select";
-import NotFound from "@/pages/not-found";
+// Page imports
+import Home from "./pages/home";
+import Tasks from "./pages/tasks";
+import TaskDetails from "./pages/task-details";
+import CreateTask from "./pages/create-task";
+import Profile from "./pages/profile";
+import Discovery from "./pages/discovery";
+import Projects from "./pages/projects";
+import Messages from "./pages/messages";
+import RoleSelect from "./pages/role-select";
+import NotFound from "./pages/not-found";
 
 function Router() {
   const { data: user } = useQuery<User>({
@@ -45,6 +48,8 @@ function Router() {
         <Route path="/tasks" component={Tasks} />
         <Route path="/tasks/:id" component={TaskDetails} />
         <Route path="/discovery" component={Discovery} />
+        <Route path="/projects" component={Projects} />
+        <Route path="/messages" component={Messages} />
         {user.role === 'client' && (
           <Route path="/create" component={CreateTask} />
         )}
