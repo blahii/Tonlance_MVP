@@ -1,4 +1,3 @@
-
 import {
   Dialog,
   DialogContent,
@@ -15,7 +14,7 @@ export function ProDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="premium" className="gap-2">
+        <Button variant="default" className="gap-2">
           <Crown className="h-4 w-4" />
           View Project Details
         </Button>
