@@ -2,139 +2,125 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { ArrowRight, Mail, Users, DollarSign, Target, Trophy, Briefcase } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { ArrowRight, Briefcase, Clock, CheckCircle, Archive } from "lucide-react";
 import { Link } from "wouter";
+
+const EXAMPLE_TASKS = {
+  active: {
+    title: "Build a Webflow Website",
+    budget: "$500",
+    timeLeft: "3 days left",
+    status: "In Progress",
+    client: "John Smith"
+  },
+  proposals: [
+    {
+      title: "Mobile App UI Design",
+      budget: "$800",
+      deadline: "Due in 5 days",
+      status: "Pending"
+    },
+    {
+      title: "WordPress Plugin Development",
+      budget: "$600",
+      deadline: "Due in 7 days",
+      status: "Pending"
+    }
+  ],
+  completed: [
+    {
+      title: "Landing Page Design",
+      budget: "$400",
+      completedDate: "Completed 2 days ago",
+      feedback: "Great work! Very professional."
+    }
+  ]
+};
 
 export default function Home() {
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Welcome, Dmytro 👋</h1>
-      
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <h1 className="text-2xl font-bold">Dashboard</h1>
+
+      <div className="grid gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Rewards & Milestones</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Briefcase className="h-5 w-5" />
+              Active Project
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <div className="flex items-center gap-2">
-                  <Trophy className="h-4 w-4" />
-                  <span>Connector</span>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-medium">{EXAMPLE_TASKS.active.title}</h3>
+                <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+                  <span>{EXAMPLE_TASKS.active.budget}</span>
+                  <span>•</span>
+                  <span>{EXAMPLE_TASKS.active.timeLeft}</span>
                 </div>
-                <Badge>$25 Rewards</Badge>
               </div>
-              <Progress value={0} max={5} className="h-2" />
-              <p className="text-sm text-muted-foreground mt-1">0/5</p>
+              <div className="flex items-center gap-2">
+                <Progress value={65} className="flex-1" />
+                <span className="text-sm font-medium">65%</span>
+              </div>
+              <Button variant="outline" size="sm">View Project</Button>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Invite Clients</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Clock className="h-5 w-5" />
+              Pending Proposals
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Earn $25 for every invited client that completes a project over $500.
-            </p>
-            <div className="flex gap-2 mb-6">
-              <Input placeholder="Client email address" type="email" />
-              <Button>Invite</Button>
-            </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold">1</div>
-                <div className="text-sm text-muted-foreground">Invited</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold">0</div>
-                <div className="text-sm text-muted-foreground">Converted</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold">$0</div>
-                <div className="text-sm text-muted-foreground">Rewards</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Discovery Score</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl font-bold">36pts</div>
-              <Badge variant="secondary">NEW</Badge>
-            </div>
-            <p className="text-sm text-muted-foreground mb-4">
-              View how you rank and get detailed insights on how to boost your score.
-            </p>
-            <Button variant="outline" className="w-full">
-              Unlock with PRO
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-lg">Matching Jobs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2 mb-4">
-              <Briefcase className="h-5 w-5 text-muted-foreground" />
-              <p>Your skills match <span className="font-bold">63</span> open jobs</p>
-            </div>
-            <div className="flex gap-2 mb-4">
-              {["Web Designer", "Webflow Developer", "Web Developer"].map((skill) => (
-                <Badge key={skill} variant="secondary">{skill}</Badge>
+            <div className="space-y-4">
+              {EXAMPLE_TASKS.proposals.map((proposal, i) => (
+                <div key={i}>
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-medium">{proposal.title}</h3>
+                      <div className="text-sm text-muted-foreground">{proposal.budget}</div>
+                    </div>
+                    <Badge variant="secondary">{proposal.status}</Badge>
+                  </div>
+                  <div className="text-sm text-muted-foreground">{proposal.deadline}</div>
+                  {i < EXAMPLE_TASKS.proposals.length - 1 && <Separator className="my-4" />}
+                </div>
               ))}
             </div>
-            <Button className="gap-2">
-              Find your next job
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Start a project</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Start your first project with a few easy steps.
-            </p>
-            <Button className="w-full">Start project</Button>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Send invoice</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Archive className="h-5 w-5" />
+              Completed Projects
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Get paid on time and keep 100% of what you earn.
-            </p>
-            <Button variant="outline" className="w-full">Send invoice</Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Pro Analytics</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Get detailed insights and analytics with Pro membership.
-            </p>
-            <Button variant="outline" className="w-full">Upgrade to Pro</Button>
+            {EXAMPLE_TASKS.completed.map((task, i) => (
+              <div key={i} className="space-y-2">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-medium">{task.title}</h3>
+                    <div className="text-sm text-muted-foreground">{task.budget}</div>
+                  </div>
+                  <Badge variant="secondary" className="gap-1">
+                    <CheckCircle className="h-3 w-3" />
+                    Done
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">{task.completedDate}</p>
+                <p className="text-sm italic">"{task.feedback}"</p>
+              </div>
+            ))}
           </CardContent>
         </Card>
       </div>
