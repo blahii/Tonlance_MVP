@@ -32,9 +32,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left Sidebar */}
-      <aside className="lg:w-64 bg-background border-r fixed h-full w-full bottom-0 lg:top-0 lg:h-full">
-        <div className="p-4 lg:block">
+      {/* Left Sidebar for desktop / Bottom menu for mobile */}
+      <aside className="lg:w-64 bg-background border-r fixed h-auto lg:h-full bottom-0 lg:bottom-auto w-full lg:top-0 z-50">
+        <div className="p-4 lg:p-6">
           <h1 className="text-2xl font-bold mb-6 hidden lg:block">Tonlance</h1>
 
           <nav className="flex lg:flex-col justify-around lg:justify-start lg:space-y-2">
@@ -51,8 +51,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       : "hover:bg-accent"
                   )}
                 >
-                  <Icon className="h-5 w-5" />
-                  <span className="mt-1 lg:mt-0">{item.label}</span>
+                  <Icon className="h-5 w-5 mb-1 lg:mb-0" />
+                  <span className="text-center lg:text-left">{item.label}</span>
                 </Link>
               );
             })}
@@ -94,7 +94,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64">
+      <main className="flex-1 ml-64 lg:ml-0"> {/* Removed fixed width on smaller screens */}
         <div className="container mx-auto px-6 py-8">
           {children}
         </div>
