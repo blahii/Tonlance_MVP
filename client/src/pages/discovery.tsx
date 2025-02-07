@@ -8,9 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, DollarSign, SlidersHorizontal, CheckCircle2 } from "lucide-react";
 
-import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
-
 const EXAMPLE_TASKS = [
   {
     id: 1,
