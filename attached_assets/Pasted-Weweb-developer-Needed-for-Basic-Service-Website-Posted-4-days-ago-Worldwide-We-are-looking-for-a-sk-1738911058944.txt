@@ -1,0 +1,97 @@
+Weweb developer Needed for Basic Service Website
+Posted 4 days ago
+Worldwide
+We are looking for a skilled Weweb developer to create a basic service website that effectively represents our brand. The ideal candidate will have experience in designing visually appealing websites and a solid understanding of Webflow's capabilities. Your role will involve creating responsive layouts, integrating necessary features, and ensuring the site is user-friendly. If you have a keen eye for design and can deliver high-quality work within deadlines, we would love to hear from you!
+
+The above AI description is perfectly right but I will add:
+- the design of the landing page will be provided (designed on Figma), other pages should stick to that desgign (font, color...) but they are not specifically design, although I made some wireframe that roughly shows the layout.
+Of course all design is responsive
+- The website is composed of:
+        - the landing page which includes some parallax/ dynamic effects
+        - a few pages with text only
+        - Contact page with the possibilty to send an email
+        -  A user account registration process with payment at the end (multi-step form)
+        -  A stripe integration
+        - A calendar integration (calendly like)
+
+$150.00
+
+Fixed-price
+Intermediate
+Experience Level
+Remote Job
+One-time project
+Project Type
+Skills and Expertise
+Webflow
+Web Development
+Activity on this job
+Proposals:
+5 to 10
+Last viewed by client:
+3 days ago
+Hires:
+1
+Interviewing:
+0
+Invites sent:
+1
+Unanswered invites:
+1
+About the client
+Member since Jul 10, 2016
+France
+Paris 7:48 AM
+$1.2K total spent
+35 hires, 2 active
+17 hours
+Explore similar jobs on Upwork
+HTML JS experts
+New Fixed-price ‐ Posted 11 minutes ago
+HTML
+JavaScript
+CSS 3
+HTML5
+jQuery
+Google Workspace Setup and Website Design for Healthcare Startup
+New Hourly ‐ Posted 18 minutes ago
+WordPress
+Web Development
+Web Design
+Google Analytics
+Graphic Design
+How it works
+Post a job icon
+Create your free profile
+Highlight your skills and experience, show your portfolio, and set your ideal pay rate.
+Talent comes to you icon 
+Work the way you want
+Apply for jobs, create easy-to-by projects, or access exclusive opportunities that come to you.
+Payment simplified icon
+Get paid securely
+From contract to payment, we help you work safely and get paid securely.
+Want to get started? Create a profile
+About Upwork
+Rating is 4.9 out of 5.
+4.9/5
+(Average rating of clients by professionals)
+G2 2021
+#1 freelance platform
+49,000+
+Signed contract every week
+$2.3B
+Freelancers earned on Upwork in 2020
+Find the best freelance jobs
+Growing your career is as easy as creating a free profile and finding work like this that fits your skills.
+
+ 
+Watch a demo
+Trusted by
+
+Microsoft Logo 
+Airbnb Logo 
+Bissell Logo 
+GoDaddy Logo 
+Other open jobs by this Client (2)
+Weweb developer Needed for Basic Service Website Fixed-price
+Webflow Developer Needed for Basic Service Website Fixed-price
