@@ -197,8 +197,11 @@ export default function Discovery() {
         ))}
       </div>
 
-      <Sheet open={!!selectedProject} onOpenChange={() => setSelectedProject(null)} side="right">
-        <SheetContent className="w-full md:w-[70%] max-h-screen overflow-y-auto">
+      <Sheet 
+        open={!!selectedProject} 
+        onOpenChange={() => setSelectedProject(null)}
+      >
+        <SheetContent side="right" className="w-full md:w-[70%] max-h-screen overflow-y-auto">
           {selectedProject && (
             <div className="space-y-6">
               <div>
