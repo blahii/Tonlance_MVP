@@ -8,7 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, DollarSign, SlidersHorizontal, CheckCircle2 } from "lucide-react";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
 
 const EXAMPLE_TASKS = [
   {
@@ -199,44 +200,85 @@ export default function Discovery() {
         ))}
       </div>
 
-      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="w-full md:max-w-[70%] max-h-[90vh] overflow-y-auto">
+      <Sheet open={!!selectedProject} onOpenChange={() => setSelectedProject(null)} side="right">
+        <SheetContent className="w-full md:w-[70%] max-h-screen overflow-y-auto">
           {selectedProject && (
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
-              
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" />
-                  <span className="font-medium">${selectedProject.budget}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  <span>{selectedProject.estimatedTime}</span>
-                </div>
-                {selectedProject.verified && (
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-primary" />
-                    <span>Payment verified</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex gap-2 flex-wrap">
-                {selectedProject.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">{tag}</Badge>
-                ))}
-              </div>
-
+            <div className="space-y-6">
               <div>
-                <h3 className="font-semibold mb-2">Description</h3>
-                <p className="text-muted-foreground whitespace-pre-wrap">
-                  {selectedProject.description}
-                </p>
+                <h2 className="text-2xl font-bold mb-2">{selectedProject.title}</h2>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Clock className="h-4 w-4" />
+                  Posted 4 days ago
+                  <span className="mx-2">•</span>
+                  <span>Worldwide</span>
+                </div>
               </div>
 
-              <div className="pt-4">
-                <Button className="w-full">Apply Now</Button>
+              <div className="grid gap-6">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="h-4 w-4" />
+                      <span className="font-medium">$150.00</span>
+                      <Badge variant="secondary">Fixed-price</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Intermediate Level</p>
+                  </div>
+                  <Badge>Remote Job</Badge>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Project Requirements</h3>
+                  <div className="space-y-2 text-sm">
+                    <p>• Landing page with parallax/dynamic effects (Figma design provided)</p>
+                    <p>• Multiple text-only pages following brand design</p>
+                    <p>• Contact page with email functionality</p>
+                    <p>• User account registration with multi-step payment form</p>
+                    <p>• Stripe integration</p>
+                    <p>• Calendar integration (Calendly-like)</p>
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Required Skills</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {["Webflow", "Web Development", "Web Design", "HTML", "CSS"].map((skill) => (
+                      <Badge key={skill} variant="secondary">{skill}</Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-4">
+                  <h3 className="font-semibold">About the Client</h3>
+                  <div className="grid gap-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Location:</span>
+                      <span>France, Paris</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Member since:</span>
+                      <span>Jul 10, 2016</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Total spent:</span>
+                      <span>$1.2K</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Total hires:</span>
+                      <span>35 (2 active)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <Button className="w-full">Apply Now</Button>
+                </div>
               </div>
             </div>
           )}
